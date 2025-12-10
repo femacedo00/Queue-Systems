@@ -1,60 +1,58 @@
-# Bank Queue System Simulation
+# Bank Queue System Simulation (Discrete Event Simulation)
 
 ![Project Status](https://img.shields.io/badge/Status-Completed-success)
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
-![Type](https://img.shields.io/badge/Type-Discrete_Event_Simulation-orange)
-![Subject](https://img.shields.io/badge/Subject-Operations_Research-lightgrey)
+![University](https://img.shields.io/badge/UNESP-Rio_Claro-green)
+![Subject](https://img.shields.io/badge/Subject-Modeling_&_Simulation-orange)
 
 ## 📌 Overview
 
-[cite_start]This project involves the modeling and simulation of a bank queue system using **Discrete Event Simulation (DES)** techniques[cite: 31, 44]. [cite_start]The goal is to replicate the behavior of a real system with a fixed number of clients and employees to measure service efficiency, waiting times, and employee idleness[cite: 15, 18].
-
-[cite_start]This work was developed as a Graduation Project for the **Computer Science** course at **UNESP - Rio Claro** (State University of São Paulo)[cite: 1, 8].
+This project implements a **Discrete Event Simulation (DES)** to model and analyze the performance of a banking queue system. Developed as a Graduation Project in Computer Science, the study aims to reproduce real-world behaviors regarding client waiting times, service efficiency, and employee idleness using pseudo-random number generation.
 
 ## 🎯 Objectives
 
-* [cite_start]**Model:** Create a virtual representation of a banking service system using pseudo-random numbers[cite: 15, 16].
-* [cite_start]**Analyze:** Calculate statistical metrics such as Time Between Arrivals (TEC), Service Time (TS), Waiting Time, and System Time[cite: 16, 45].
-* [cite_start]**Optimize:** Explore different operating scenarios to identify bottlenecks and propose improvements in the process[cite: 19].
+* **Simulation:** Model a system with a fixed number of clients and employees.
+* **Stochastic Analysis:** Use probability distributions to determine **Time Between Arrivals (TEC)** and **Service Time (TS)**.
+* **Performance Metrics:** Calculate and analyze:
+    * Average waiting time in queue.
+    * Total time in the system.
+    * Employee idle time.
+* **Optimization:** Evaluate different scenarios to propose process improvements.
 
-## ⚙️ Methodology
+## 🛠️ Methodology
 
-[cite_start]The simulation was implemented in **Python**[cite: 52]. [cite_start]To ensure statistical robustness, the simulation was repeated **1000 times** using different seeds for random number generation, allowing for the calculation of confidence intervals (95%) for key metrics[cite: 61, 62].
+The simulation was built in **Python**. To ensure statistical validity, the model runs **1000 iterations** with different random seeds, generating confidence intervals (95%) for all major metrics.
 
-### Mathematical Models
-[cite_start]The system relies on stochastic variables defined by the following expressions[cite: 48, 50]:
+### Mathematical Model
+The system is driven by the following equations for time generation:
 
-* **Time Between Arrivals (TEC):**
+1.  **Time Between Arrivals (TEC):**
     $$TEC(i) = \frac{-ln(random(i))}{0.6}$$
-* **Service Time (TS):**
+
+2.  **Service Time (TS):**
     $$TS(i) = \frac{-ln(random(i))}{0.4} + 0.3$$
 
-### Logic Flow
-1.  [cite_start]**Arrival:** Checks if the client arrives within the 8-hour operation limit (480 minutes)[cite: 54, 66].
-2.  **Queue/Service:** If an employee is free, service starts immediately. [cite_start]If not, the system assigns the client to the employee who will finish earliest[cite: 57, 58].
-3.  [cite_start]**Metrics:** Calculates wait time, total time in system, and employee idle time[cite: 59].
+*Where $random(i)$ is a pseudo-random number between 0 and 1.*
 
-## 📊 Results & Scenarios
+## 📊 Scenarios & Results
 
-[cite_start]Three distinct scenarios were analyzed to test system capacity (initially set for 432 clients and 2 employees)[cite: 66].
+The study evaluated the system under three distinct configurations (based on an 8-hour workday with 2 employees):
 
-| Scenario | Description | Clients Served | Wait Time | Employee Status |
-| :--- | :--- | :---: | :---: | :--- |
-| **1. Baseline** | Standard TEC and TS parameters. | ~66% | ~5 min | [cite_start]**Idle time:** ~30s per employee[cite: 251, 252, 253, 254]. |
-| **2. High Demand** | TEC reduced by half (more frequent arrivals). | **100%** | **+3420%** | **Continuous work** (0s idle time). [cite_start]Huge queues formed[cite: 417, 418]. |
-| **3. Optimized** | Both TEC and TS reduced by half. | **100%** | Reduced | **Continuous work** (0s idle time). [cite_start]Efficient flow but high employee stress[cite: 582, 583]. |
+| Scenario | Configuration | Results | Analysis |
+| :--- | :--- | :--- | :--- |
+| **1. Baseline** | Standard TEC/TS parameters. | **66% Served**<br>Wait: ~5 min<br>Idle: ~30s | System is under-capacity. 34% of clients cannot be served within working hours. |
+| **2. High Demand** | TEC reduced by 50% (Double arrivals). | **100% Served**<br>Wait: **+3420%**<br>Idle: 0s | System collapses. While all clients enter, the queue becomes unmanageable. |
+| **3. Optimized** | TEC and TS reduced by 50%. | **100% Served**<br>Wait: Reduced<br>Idle: 0s | **Best Balance.** High throughput requires faster service (lower TS) to match arrival rates. |
 
 ## 📝 Conclusion
 
-* [cite_start]**Scenario 1:** The system is comfortable for employees but inefficient for clients, as roughly 34% of clients cannot be served within the 8-hour window[cite: 251].
-* [cite_start]**Scenario 2:** Simply increasing the arrival rate ensures everyone gets in the door, but causes the system to collapse with unmanageable waiting times[cite: 417].
-* **Scenario 3:** Increasing service speed (reducing TS) is necessary to handle higher volume. [cite_start]This achieves 100% service rate with manageable queues, though it eliminates employee breaks[cite: 582, 583].
+The simulation demonstrates that simply allowing more clients into the system (Scenario 2) without improving service speed leads to exponential growth in waiting times. The most efficient approach (Scenario 3) requires a reduction in service time (TS), allowing for 100% service completion, though it results in zero idle time for employees, suggesting a high-stress environment.
 
 ## 👥 Author
 
-* [cite_start]**Felipe Silva Alves de Oliveira** [cite: 9]
-* **Advisor:** (Not listed in snippet)
-* [cite_start]**Institution:** UNESP - Instituto de Geociências e Ciências Exatas (Rio Claro)[cite: 2, 3].
+* **Felipe Silva Alves de Oliveira**
+* **Institution:** UNESP - Instituto de Geociências e Ciências Exatas (Rio Claro)
+* **Year:** 2025
 
 ---
-*2025 - Modeling and Performance Evaluation*
+*Built with Python & Matplotlib*
